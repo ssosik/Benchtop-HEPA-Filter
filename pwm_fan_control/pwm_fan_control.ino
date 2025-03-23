@@ -10,7 +10,7 @@
 const int fanOutput = 33;
 //rotary potentiometer pin
 const int rotPot = 32;
-// power led ping
+// power led pin
 const int ledPin = 18;
 
 const int minDutyCycle = 40;

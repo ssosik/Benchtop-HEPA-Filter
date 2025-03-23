@@ -2,14 +2,14 @@
 
 Inspired by https://github.com/opennukit/Nukit-Open-Air-Purifier
 
-![Finished Filter Assembly](https://github.com/ssosik/Benchtop-HEPA-Filter/blob/test/images/20250316_174557.jpg)
+![Finished Filter Assembly](https://github.com/ssosik/Benchtop-HEPA-Filter/blob/main/images/20250316_174557.jpg)
 
 [Box Parameters I used][link0]
 
 ## Materials I used:
 - HPA300 HEPA Air Filters (165mm X 261mm X 41mm)
 - 12"x12"x1/8" balsa sheets
-- An [ESP32][link1]
+- An ESP32
 - DC - DC Buck converter (step 12v down to 5v)
 - 4-pin PC PWM Fan connectors (female)
 - 2x Arctic P14 PWM 140mm case fans
@@ -18,7 +18,7 @@ Inspired by https://github.com/opennukit/Nukit-Open-Air-Purifier
 - B10k rotary potentiometer
 - 1 Red LED + 220Ω resistor
 - Hookup wire
-* A 12V voltage source (or 5V for 5V fans)
+- A 12V voltage source (or 5V for 5V fans)
 
 I'm very fortunate to have access to a great local library system with a well-funded makerspace, including a GlowForge laser cutter. I used that to cut out the balsa wood sheets into the box sides.
 
@@ -38,11 +38,11 @@ I used https://github.com/FAB1150/ESP32_fan_control as a good starting point for
   * you're done!
 
 ## Wiring
-Wiring everything up is fairly easy, as you can usually do everything on one side of the ESP32. Again, make sure to [check the pinout of your board][link4], as some have the 3V3 output on the other side!
+Wiring everything up should be pretty straightforward. Make sure to [check the pinout of your board][link4].
 
 Follow this image for reference:
 
-  ![Breadboard](https://github.com/ssosik/Benchtop-HEPA-Filter/blob/test/esp32-circuit_bb.png)
+  ![Breadboard](https://github.com/ssosik/Benchtop-HEPA-Filter/blob/main/esp32-circuit_bb.png)
 
   * Be careful with connecting the fan wires correctly! the PWM signal wire is NOT next to the power wires, but the one on the other side of the connector! be careful or you will fry your esp32!
 
@@ -56,13 +56,16 @@ This README guides you through the basic settings, they'll easily get you up and
   * After downloading it, open pwm_fan_control.ino with the Arduino IDE
   * If you have never used an ESP32 with the Arduino IDE yet, follow [this tutorial][link6] to get started. Now that you see the esp32 code correctly, we can go on editing our settings.
   * define the correct pins by editing these two variables, if you used the same pins as me you don't have to modify this
-    ``` c++
-    //setting the I/O pins
-      //the fan PWM output pin
-        const int fanOutput = 32;
-      //thermistor pin
-        const int thrm = 25;
-    ```
+``` c++
+//setting the I/O pins
+//the fan PWM output pin
+const int fanOutput = 33;
+//rotary potentiometer pin
+const int rotPot = 32;
+// power led pin
+const int ledPin = 18;
+```
+
 ### Opening the serial monitor
 For the next two steps we're gonna need to see the values that the ESP is reading. We'll be able to by using the serial monitor of the Arduino IDE
 
@@ -75,17 +78,10 @@ For the next two steps we're gonna need to see the values that the ESP is readin
 
     ![serial monitor][img7]
 
-  * This is your friend. The columns of numbers you see are respectively the temperature reading, the voltage reading and the resistance of the thermistor, and the PWM output (from 0 to 255) to the fan.
-
-## Usage
-
-You're free to do what you want with it. I use it to drive a fan on a solar inverter that should be passive but gets way too hot when pulling a consistent load, but PWM is used pretty much anywhere. Use it to drive LEDs, fans, servos, you name it! have fun!
-
 ## License
 [GNU GPLv3.0](https://choosealicense.com/licenses/gpl-3.0/)
 
 [link0]: https://d3t2bqcgejmujs.cloudfront.net/AirPurifier?FingerJoint_angle=90.0&FingerJoint_style=rectangular&FingerJoint_surroundingspaces=2.0&FingerJoint_bottom_lip=0.0&FingerJoint_edge_width=1.0&FingerJoint_extra_length=0.0&FingerJoint_finger=2.0&FingerJoint_play=0.0&FingerJoint_space=2.0&FingerJoint_width=1.0&DoveTail_angle=50&DoveTail_depth=1.0&DoveTail_radius=0.2&DoveTail_size=2&x=165&y=261&filter_height=41&rim=20&fan_diameter=140.0&filters=1&split_frames=0&fans_left=-1&fans_right=-1&fans_top=0&fans_bottom=0&screw_holes=5.0&thickness=4&format=svg&tabs=0.0&qr_code=0&qr_code=1&debug=0&labels=0&labels=1&reference=100&inner_corners=backarc&burn=0.1&language=None&render=0
-[link1]: https://www.amazon.com/HiLetgo-ESP-WROOM-32-Development-Microcontroller-Integrated/dp/B0718T232Z/ref=sr_1_4?crid=1WTN5IH997FW2&keywords=esp32&qid=1655224029&sprefix=esp32%2Caps%2C151&sr=8-4
 [link4]: https://www.upesy.com/blogs/tutorials/esp32-pinout-reference-gpio-pins-ultimate-guide
 [link6]: https://randomnerdtutorials.com/installing-the-esp32-board-in-arduino-ide-windows-instructions/
 
